@@ -7,7 +7,6 @@ export { shouldAnimatePage } from "./lib/animation-tracker";
 
 // ─── UI Primitives ────────────────────────────────────────────────────────────
 export { Button, buttonVariants } from "./components/ui/button";
-export type { ButtonProps } from "./components/ui/button";
 
 export {
   Card,
@@ -20,7 +19,6 @@ export {
 } from "./components/ui/card";
 
 export { Badge, badgeVariants } from "./components/ui/badge";
-export type { BadgeProps } from "./components/ui/badge";
 
 export { Input } from "./components/ui/input";
 export { Label } from "./components/ui/label";
@@ -44,7 +42,7 @@ export { MultiStepForm } from "./components/ui/multi-step-form";
 export { FlipText } from "./components/animation/flip-text";
 export { FlipWords } from "./components/animation/flip-words";
 export { AnimatedGroup } from "./components/animation/animated-group";
-export { AnimatedGrid } from "./components/animation/animated-grid";
+export { AnimatedGridPattern } from "./components/animation/animated-grid";
 export { TextEffect } from "./components/animation/text-effect";
 export { Highlight } from "./components/animation/hero-highlight";
 export { ScrollProgress } from "./components/animation/scroll-progress";
