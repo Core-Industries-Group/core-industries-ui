@@ -1,0 +1,381 @@
+/*
+ * @core-industries-group/ui — Design Tokens
+ * ==========================================
+ * Import this file in your project's globals.css AFTER @import "tailwindcss":
+ *
+ *   @import "tailwindcss";
+ *   @import "@core-industries-group/ui/tokens";
+ *
+ * Requires: Tailwind CSS v4
+ */
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   BRAND & STATIC TOKENS
+   ============================================================ */
+
+@theme {
+  --color-brand: #FF602D;
+  --color-brand-light: #D4501F;
+  --color-brand-deep: #D4501F;
+  --color-brand-glow: rgba(255, 96, 45, 0.15);
+  --color-brand-subtle: rgba(255, 96, 45, 0.06);
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ============================================================
+   LIGHT MODE (DEFAULT)
+   ============================================================ */
+
+:root {
+  --color-bg: #F7F8FC;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #F1F3F8;
+  --color-surface-elevated: #E8EBF2;
+  --color-surface-overlay: rgba(255, 255, 255, 0.92);
+
+  --color-ink: #272727;
+  --color-ink-secondary: #4B5563;
+  --color-ink-tertiary: #9CA3AF;
+  --color-ink-faint: #D1D5DB;
+
+  --color-border: rgba(0, 0, 0, 0.06);
+  --color-border-strong: rgba(0, 0, 0, 0.12);
+  --color-border-brand: rgba(255, 96, 45, 0.25);
+
+  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.08), 0 16px 48px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.05), 0 8px 32px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 30px rgba(255, 96, 45, 0.12), 0 0 60px rgba(255, 96, 45, 0.06);
+  --shadow-glow-sm: 0 0 20px rgba(255, 96, 45, 0.08);
+
+  --hero-gradient-start: #EEF2FF;
+  --hero-gradient-end: #F7F8FC;
+  --hero-accent-glow: rgba(255, 96, 45, 0.06);
+  --hero-blue-tint: rgba(99, 102, 241, 0.04);
+
+  /* Aurora color variables */
+  --white: #F7F8FC;
+  --black: #06060A;
+  --transparent: transparent;
+  --blue-500: #3b82f6;
+  --blue-400: #60a5fa;
+  --blue-300: #93c5fd;
+  --indigo-300: #a5b4fc;
+  --violet-200: #ddd6fe;
+
+  --radius: 0.625rem;
+  --background: #F7F8FC;
+  --foreground: #272727;
+  --card: #FFFFFF;
+  --card-foreground: #272727;
+  --popover: #FFFFFF;
+  --popover-foreground: #272727;
+  --primary: #FF602D;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F3F8;
+  --secondary-foreground: #272727;
+  --muted: #F1F3F8;
+  --muted-foreground: #4B5563;
+  --accent: #F1F3F8;
+  --accent-foreground: #272727;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: rgba(0, 0, 0, 0.06);
+  --input: rgba(0, 0, 0, 0.12);
+  --ring: #FF602D;
+  --chart-1: #FF602D;
+  --chart-2: #FE8D3F;
+  --chart-3: #D4501F;
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: #F1F3F8;
+  --sidebar-foreground: #272727;
+  --sidebar-primary: #FF602D;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E8EBF2;
+  --sidebar-accent-foreground: #272727;
+  --sidebar-border: rgba(0, 0, 0, 0.06);
+  --sidebar-ring: #FF602D;
+}
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+
+.dark {
+  --color-bg: #06060A;
+  --color-surface: #0C0C12;
+  --color-surface-raised: #12121A;
+  --color-surface-elevated: #1A1A24;
+  --color-surface-overlay: rgba(12, 12, 18, 0.92);
+
+  --color-ink: #F0EFE8;
+  --color-ink-secondary: #9B9A93;
+  --color-ink-tertiary: #5E5D58;
+  --color-ink-faint: #3A3A3F;
+
+  --color-border: rgba(240, 239, 232, 0.06);
+  --color-border-strong: rgba(240, 239, 232, 0.12);
+  --color-border-brand: rgba(255, 96, 45, 0.2);
+
+  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.4), 0 16px 48px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 30px rgba(255, 96, 45, 0.2), 0 0 60px rgba(255, 96, 45, 0.1);
+  --shadow-glow-sm: 0 0 20px rgba(255, 96, 45, 0.12);
+
+  --hero-gradient-start: #0C0C12;
+  --hero-gradient-end: #06060A;
+  --hero-accent-glow: rgba(255, 96, 45, 0.08);
+  --hero-blue-tint: rgba(99, 102, 241, 0.06);
+  --background: #06060A;
+  --foreground: #F0EFE8;
+  --card: #0C0C12;
+  --card-foreground: #F0EFE8;
+  --popover: #0C0C12;
+  --popover-foreground: #F0EFE8;
+  --primary: #FF602D;
+  --primary-foreground: #FFFFFF;
+  --secondary: #12121A;
+  --secondary-foreground: #F0EFE8;
+  --muted: #12121A;
+  --muted-foreground: #9B9A93;
+  --accent: #12121A;
+  --accent-foreground: #F0EFE8;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgba(240, 239, 232, 0.06);
+  --input: rgba(240, 239, 232, 0.12);
+  --ring: #FF602D;
+  --chart-1: #FF602D;
+  --chart-2: #FE8D3F;
+  --chart-3: #D4501F;
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: #12121A;
+  --sidebar-foreground: #F0EFE8;
+  --sidebar-primary: #FF602D;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #1A1A24;
+  --sidebar-accent-foreground: #F0EFE8;
+  --sidebar-border: rgba(240, 239, 232, 0.06);
+  --sidebar-ring: #FF602D;
+}
+
+/* ============================================================
+   TAILWIND v4 TOKEN MAPPINGS
+   ============================================================ */
+
+@theme inline {
+  --animate-aurora: aurora 60s linear infinite;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+::selection {
+  background: rgba(255, 96, 45, 0.25);
+  color: var(--color-ink);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+*::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+*, html, body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.overline {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+}
+
+/* ============================================================
+   GRADIENT & GLOW UTILITIES
+   ============================================================ */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-brand) 0%, var(--color-brand-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-gradient-bg {
+  background: linear-gradient(135deg, var(--color-brand) 0%, var(--color-brand-light) 100%);
+}
+
+.glow-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-brand) 50%, transparent 100%);
+  opacity: 0.2;
+}
+
+.card-glow {
+  position: relative;
+}
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 96, 45, 0.12) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.card-glow:hover::before {
+  opacity: 1;
+}
+
+/* ============================================================
+   FLOAT ANIMATIONS
+   ============================================================ */
+
+@keyframes float-a {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(8px); }
+}
+@keyframes float-c {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(1deg); }
+}
+@keyframes float-d {
+  0%, 100% { transform: translateY(0px); }
+  33% { transform: translateY(-7px); }
+  66% { transform: translateY(3px); }
+}
+
+.float-a { animation: float-a 6s ease-in-out infinite; }
+.float-b { animation: float-b 5s ease-in-out infinite; }
+.float-c { animation: float-c 7s ease-in-out infinite; }
+.float-d { animation: float-d 8s ease-in-out infinite; }
+
+/* Legacy aliases */
+.float-slow { animation: float-a 6s ease-in-out infinite; }
+.float-reverse { animation: float-b 5s ease-in-out infinite; }
+
+@keyframes aurora {
+  from { background-position: 50% 50%, 50% 50%; }
+  to { background-position: 350% 50%, 350% 50%; }
+}
+
+/* ============================================================
+   NOISE TEXTURE
+   ============================================================ */
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.018;
+  mix-blend-mode: overlay;
+}

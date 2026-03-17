@@ -1,0 +1,73 @@
+{
+  "name": "@core-industries-group/ui",
+  "version": "0.1.0",
+  "description": "Core Industries design system — tokens, components, and templates for all CI products",
+  "license": "UNLICENSED",
+  "private": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./templates": {
+      "import": "./dist/templates.mjs",
+      "require": "./dist/templates.js",
+      "types": "./dist/templates.d.ts"
+    },
+    "./tokens": "./src/tokens/tokens.css"
+  },
+  "files": [
+    "dist",
+    "src/tokens"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "framer-motion": ">=10",
+    "next-themes": ">=0.2",
+    "tailwindcss": ">=4"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.577.0",
+    "radix-ui": "^1.4.3",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "framer-motion": "^12",
+    "next": "^16",
+    "next-themes": "^0.4",
+    "react": "^19",
+    "react-dom": "^19",
+    "tsup": "^8",
+    "typescript": "^5"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Core-Industries-Group/core-industries-ui.git"
+  }
+}
