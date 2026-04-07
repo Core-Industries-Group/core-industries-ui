@@ -30,7 +30,10 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "showcase": "npm --prefix showcase run dev",
+    "showcase:build": "npm --prefix showcase run build",
+    "showcase:preview": "npm --prefix showcase run preview"
   },
   "peerDependencies": {
     "react": ">=18",

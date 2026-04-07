@@ -84,7 +84,7 @@
   --muted-foreground: #4B5563;
   --accent: #F1F3F8;
   --accent-foreground: #272727;
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: #EF4444;
   --border: rgba(0, 0, 0, 0.06);
   --input: rgba(0, 0, 0, 0.12);
   --ring: #FF602D;
@@ -148,7 +148,7 @@
   --muted-foreground: #9B9A93;
   --accent: #12121A;
   --accent-foreground: #F0EFE8;
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: #F87171;
   --border: rgba(240, 239, 232, 0.06);
   --input: rgba(240, 239, 232, 0.12);
   --ring: #FF602D;
@@ -171,7 +171,7 @@
    TAILWIND v4 TOKEN MAPPINGS
    ============================================================ */
 
-@theme inline {
+@theme {
   --animate-aurora: aurora 60s linear infinite;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

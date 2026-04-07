@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "../../src/tokens/tokens.css";
+
+@source "../../src/**/*.{ts,tsx}";
+@source "../src/**/*.{ts,tsx}";
+
+/* Showcase-specific overrides */
+.showcase-code {
+  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}

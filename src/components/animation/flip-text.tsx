@@ -54,7 +54,7 @@ export function FlipText({ children }: { children: ReactNode }) {
   return (
     <motion.span
       ref={ref}
-      className="relative inline-flex items-center justify-center"
+      className="relative inline-flex shrink-0 items-center justify-center"
       style={{ perspective: "600px" }}
       animate={hovered ? "hover" : "initial"}
     >

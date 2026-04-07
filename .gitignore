@@ -1,0 +1,8 @@
+node_modules
+showcase/node_modules
+showcase/dist
+Daily Logs/
+.vercel
+.DS_Store
+.claude-project
+*.tgz

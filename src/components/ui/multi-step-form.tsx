@@ -21,7 +21,9 @@ const steps: Step[] = [
 ];
 
 export function MultiStepForm({ variant = "default" }: { variant?: "default" | "onOrange" | "modal" }) {
-  const isOrange = variant === "onOrange" || variant === "modal";
+  const isOrange = variant === "onOrange";
+  const isModal = variant === "modal";
+  const isAccented = isOrange || isModal;
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [isComplete, setIsComplete] = useState(false);
@@ -39,7 +41,6 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
   };
 
   const currentStepData = steps[currentStep];
-  const progress = ((currentStep + 1) / steps.length) * 100;
 
   if (isComplete) {
     return (
@@ -49,17 +50,19 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
             "relative overflow-hidden rounded-2xl p-12",
             isOrange
               ? "bg-white shadow-xl"
-              : "border border-border/50 bg-gradient-to-br from-background via-background to-muted/20 backdrop-blur"
+              : isModal
+                ? "bg-white shadow-xl dark:bg-card dark:shadow-none dark:border dark:border-border/50"
+                : "border border-border/50 bg-gradient-to-br from-background via-background to-muted/20 backdrop-blur"
           )}
         >
-          {!isOrange && (
+          {!isAccented && (
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),transparent_50%)]" />
           )}
           <div className="relative flex flex-col items-center gap-4 animate-in fade-in zoom-in-95 duration-700">
             <div
               className={cn(
                 "flex h-16 w-16 items-center justify-center rounded-full",
-                isOrange
+                isAccented
                   ? "bg-[#FF602D]/10 border-2 border-[#FF602D]/20"
                   : "border-2 border-foreground/10 bg-foreground/5"
               )}
@@ -67,7 +70,7 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
               <CheckIcon
                 className={cn(
                   "h-8 w-8 animate-in zoom-in duration-500 delay-200",
-                  isOrange ? "text-[#FF602D]" : "text-foreground"
+                  isAccented ? "text-[#FF602D]" : "text-foreground"
                 )}
                 strokeWidth={2.5}
               />
@@ -76,7 +79,7 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
               <h2
                 className={cn(
                   "text-xl font-medium tracking-tight text-balance",
-                  isOrange ? "text-gray-900" : ""
+                  isOrange ? "text-gray-900" : isModal ? "text-gray-900 dark:text-foreground" : ""
                 )}
               >
                 You&apos;re all set
@@ -84,7 +87,7 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
               <p
                 className={cn(
                   "text-sm",
-                  isOrange ? "text-gray-500" : "text-muted-foreground/80"
+                  isOrange ? "text-gray-500" : isModal ? "text-gray-500 dark:text-muted-foreground" : "text-muted-foreground/80"
                 )}
               >
                 {formData.name}
@@ -103,22 +106,25 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
         variant === "onOrange" && "rounded-2xl bg-white p-8 shadow-xl"
       )}
     >
-      <div className="mb-10 flex items-center justify-center gap-3">
+      <div className="mb-10 flex items-center">
         {steps.map((step, index) => (
-          <div key={step.id} className="flex items-center gap-3">
+          <div key={step.id} className={cn("flex items-center", index < steps.length - 1 && "flex-1")}>
             <button
               onClick={() => index < currentStep && setCurrentStep(index)}
               disabled={index > currentStep}
               className={cn(
-                "group relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-700 ease-out",
+                "group relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-700 ease-out",
                 "disabled:cursor-not-allowed",
-                isOrange
+                isAccented
                   ? cn(
                       index < currentStep && "bg-[#FF602D]/15 text-[#FF602D]",
                       index === currentStep &&
                         "bg-[#FF602D] text-white shadow-[0_0_20px_-5px_rgba(255,96,45,0.4)]",
-                      index > currentStep &&
-                        "bg-gray-100 text-gray-400 border border-gray-200"
+                      index > currentStep && (
+                        isOrange
+                          ? "bg-gray-100 text-gray-400 border border-gray-200"
+                          : "bg-muted text-muted-foreground/60 border border-border"
+                      )
                     )
                   : cn(
                       index < currentStep && "bg-foreground/15 text-foreground/70",
@@ -141,13 +147,13 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
                 <div
                   className={cn(
                     "absolute inset-0 rounded-full blur-md animate-pulse",
-                    isOrange ? "bg-[#FF602D]/25" : "bg-foreground/20"
+                    isAccented ? "bg-[#FF602D]/25" : "bg-foreground/20"
                   )}
                 />
               )}
             </button>
             {index < steps.length - 1 && (
-              <div className="relative h-[1.5px] w-12">
+              <div className="relative h-[1.5px] flex-1 mx-3">
                 <div
                   className={cn(
                     "absolute inset-0",
@@ -157,7 +163,7 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
                 <div
                   className={cn(
                     "absolute inset-0 transition-all duration-700 ease-out origin-left",
-                    isOrange ? "bg-[#FF602D]/40" : "bg-foreground/30"
+                    isAccented ? "bg-[#FF602D]/40" : "bg-foreground/30"
                   )}
                   style={{
                     transform: `scaleX(${index < currentStep ? 1 : 0})`,
@@ -167,23 +173,6 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
             )}
           </div>
         ))}
-      </div>
-
-      <div
-        className={cn(
-          "mb-8 overflow-hidden rounded-full h-[2px]",
-          isOrange ? "bg-gray-200" : "bg-border"
-        )}
-      >
-        <div
-          className={cn(
-            "h-full transition-all duration-1000 ease-out",
-            isOrange
-              ? "bg-gradient-to-r from-[#FF602D]/60 to-[#FF602D]"
-              : "bg-gradient-to-r from-foreground/60 to-foreground"
-          )}
-          style={{ width: `${progress}%` }}
-        />
       </div>
 
       <div className="space-y-8">
@@ -196,7 +185,7 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
               htmlFor={currentStepData.field}
               className={cn(
                 "text-lg font-medium tracking-tight",
-                isOrange && "text-gray-900"
+                isOrange ? "text-gray-900" : isModal ? "text-gray-900 dark:text-foreground" : ""
               )}
             >
               {currentStepData.label}
@@ -204,7 +193,7 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
             <span
               className={cn(
                 "text-xs font-medium tabular-nums",
-                isOrange ? "text-gray-400" : "text-muted-foreground/60"
+                isOrange ? "text-gray-400" : isModal ? "text-gray-400 dark:text-muted-foreground/60" : "text-muted-foreground/60"
               )}
             >
               {currentStep + 1}/{steps.length}
@@ -220,10 +209,12 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
                 handleInputChange(currentStepData.field, e.target.value)
               }
               className={cn(
-                "h-14 text-base transition-all duration-500 shadow-sm",
+                "h-12 rounded-xl text-base transition-all duration-500 shadow-sm",
                 isOrange
                   ? "border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400 focus:border-[#FF602D]/40 focus:ring-[#FF602D]/10"
-                  : "border-border focus:border-foreground/30 bg-card"
+                  : isModal
+                    ? "border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400 focus:border-[#FF602D]/40 focus:ring-[#FF602D]/10 dark:border-border dark:bg-input/30 dark:text-foreground dark:placeholder:text-muted-foreground dark:focus:border-[#FF602D]/40 dark:focus:ring-[#FF602D]/10"
+                    : "border-border focus:border-foreground/30 bg-card"
               )}
             />
           </div>
@@ -234,8 +225,8 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
           disabled={!formData[currentStepData.field]?.trim()}
           className={cn(
             "w-full h-12 group relative transition-all duration-300",
-            isOrange
-              ? "bg-[#FF602D] text-white hover:bg-[#D4501F] hover:shadow-lg hover:shadow-[#FF602D]/20 disabled:bg-gray-200 disabled:text-gray-400"
+            isAccented
+              ? "bg-[#FF602D] text-white hover:bg-[#D4501F] hover:shadow-lg hover:shadow-[#FF602D]/20 disabled:bg-gray-200 disabled:text-gray-400 dark:disabled:bg-muted dark:disabled:text-muted-foreground/60"
               : "hover:shadow-lg hover:shadow-foreground/5"
           )}
         >
@@ -255,7 +246,9 @@ export function MultiStepForm({ variant = "default" }: { variant?: "default" | "
               "w-full text-center text-sm transition-all duration-300",
               isOrange
                 ? "text-gray-400 hover:text-gray-600"
-                : "text-muted-foreground/60 hover:text-foreground/80"
+                : isModal
+                  ? "text-gray-400 hover:text-gray-600 dark:text-muted-foreground/60 dark:hover:text-foreground/80"
+                  : "text-muted-foreground/60 hover:text-foreground/80"
             )}
           >
             Go back

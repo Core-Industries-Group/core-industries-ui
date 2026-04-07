@@ -37,6 +37,10 @@ export {
 
 export { SectionPill } from "./components/ui/section-pill";
 export { MultiStepForm } from "./components/ui/multi-step-form";
+export { ShimmerButton } from "./components/ui/shimmer-button";
+export type { ShimmerButtonProps } from "./components/ui/shimmer-button";
+export { AnnouncementPill } from "./components/ui/announcement-pill";
+export type { AnnouncementPillProps } from "./components/ui/announcement-pill";
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 export { FlipText } from "./components/animation/flip-text";

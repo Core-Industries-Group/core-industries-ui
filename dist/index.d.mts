@@ -103,6 +103,28 @@ declare function MultiStepForm({ variant }: {
     variant?: "default" | "onOrange" | "modal";
 }): react_jsx_runtime.JSX.Element;
 
+declare const shimmerGradients: {
+    readonly white: {
+        readonly background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 48%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.12) 52%, transparent 60%)";
+    };
+    readonly orange: {
+        readonly background: "linear-gradient(105deg, transparent 40%, rgba(255,96,45,0.08) 48%, rgba(255,96,45,0.14) 50%, rgba(255,96,45,0.08) 52%, transparent 60%)";
+    };
+};
+interface ShimmerButtonProps extends React$1.ComponentProps<"button"> {
+    shimmerColor?: keyof typeof shimmerGradients;
+    asChild?: boolean;
+}
+declare function ShimmerButton({ shimmerColor, asChild, className, children, ...props }: ShimmerButtonProps): react_jsx_runtime.JSX.Element;
+
+interface AnnouncementPillProps {
+    href: string;
+    children: React__default.ReactNode;
+    external?: boolean;
+    className?: string;
+}
+declare function AnnouncementPill({ href, children, external, className, }: AnnouncementPillProps): react_jsx_runtime.JSX.Element;
+
 declare function FlipText({ children }: {
     children: ReactNode;
 }): react_jsx_runtime.JSX.Element;
@@ -281,4 +303,4 @@ interface FloatingLogosProps {
  */
 declare function FloatingLogos({ logos, className }: FloatingLogosProps): react_jsx_runtime.JSX.Element;
 
-export { AnimatedGridPattern, AnimatedGroup, AuroraBackground, AvatarCircles, type AvatarCirclesProps, Badge, Button, Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, DisplayCard, type DisplayCardProps, DisplayCards, type DisplayCardsProps, FlickeringGrid, FlipText, FlipWords, type FloatingLogoItem, FloatingLogos, type FloatingLogosProps, GradientBars, GradientBarsBackground, Highlight, Input, Label, MultiStepForm, NoiseTexture, PageAnimationGate, ProgressiveBlurCard, ScrollProgress, SectionPill, Separator, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger, Spotlight, TextEffect, ThemeProvider, badgeVariants, buttonVariants, cn, fadeUp, shouldAnimatePage, stagger, usePageAnimation };
+export { AnimatedGridPattern, AnimatedGroup, AnnouncementPill, type AnnouncementPillProps, AuroraBackground, AvatarCircles, type AvatarCirclesProps, Badge, Button, Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, DisplayCard, type DisplayCardProps, DisplayCards, type DisplayCardsProps, FlickeringGrid, FlipText, FlipWords, type FloatingLogoItem, FloatingLogos, type FloatingLogosProps, GradientBars, GradientBarsBackground, Highlight, Input, Label, MultiStepForm, NoiseTexture, PageAnimationGate, ProgressiveBlurCard, ScrollProgress, SectionPill, Separator, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger, ShimmerButton, type ShimmerButtonProps, Spotlight, TextEffect, ThemeProvider, badgeVariants, buttonVariants, cn, fadeUp, shouldAnimatePage, stagger, usePageAnimation };

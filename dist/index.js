@@ -63,16 +63,16 @@ var buttonVariants = classVarianceAuthority.cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40",
+        destructive: "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
         outline: "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline"
       },
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        default: "h-9 px-4 py-2 has-[>svg]:px-4",
         xs: "h-6 gap-1 px-2 text-xs has-[>svg]:px-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-8 gap-1.5 px-3 has-[>svg]:px-2.5",
+        sm: "h-8 gap-1.5 px-3 has-[>svg]:px-3",
         lg: "h-10 px-6 has-[>svg]:px-4",
         icon: "size-9",
         "icon-xs": "size-6 [&_svg:not([class*='size-'])]:size-3",
@@ -191,7 +191,7 @@ var badgeVariants = classVarianceAuthority.cva(
       variant: {
         default: "bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
         secondary: "bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
-        destructive: "bg-destructive text-white focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40 [a&]:hover:bg-destructive/90",
+        destructive: "bg-destructive text-white focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 [a&]:hover:bg-destructive/90",
         outline: "border-border text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
         ghost: "[a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
         link: "text-primary underline-offset-4 [a&]:hover:underline"
@@ -406,7 +406,9 @@ var steps = [
   { id: 3, label: "Goal", field: "goal", placeholder: "What brings you here?" }
 ];
 function MultiStepForm({ variant = "default" }) {
-  const isOrange = variant === "onOrange" || variant === "modal";
+  const isOrange = variant === "onOrange";
+  const isModal = variant === "modal";
+  const isAccented = isOrange || isModal;
   const [currentStep, setCurrentStep] = React2.useState(0);
   const [formData, setFormData] = React2.useState({});
   const [isComplete, setIsComplete] = React2.useState(false);
@@ -421,31 +423,30 @@ function MultiStepForm({ variant = "default" }) {
     setFormData({ ...formData, [field]: value });
   };
   const currentStepData = steps[currentStep];
-  const progress = (currentStep + 1) / steps.length * 100;
   if (isComplete) {
     return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "w-full max-w-sm", children: /* @__PURE__ */ jsxRuntime.jsxs(
       "div",
       {
         className: cn(
           "relative overflow-hidden rounded-2xl p-12",
-          isOrange ? "bg-white shadow-xl" : "border border-border/50 bg-gradient-to-br from-background via-background to-muted/20 backdrop-blur"
+          isOrange ? "bg-white shadow-xl" : isModal ? "bg-white shadow-xl dark:bg-card dark:shadow-none dark:border dark:border-border/50" : "border border-border/50 bg-gradient-to-br from-background via-background to-muted/20 backdrop-blur"
         ),
         children: [
-          !isOrange && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),transparent_50%)]" }),
+          !isAccented && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),transparent_50%)]" }),
           /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative flex flex-col items-center gap-4 animate-in fade-in zoom-in-95 duration-700", children: [
             /* @__PURE__ */ jsxRuntime.jsx(
               "div",
               {
                 className: cn(
                   "flex h-16 w-16 items-center justify-center rounded-full",
-                  isOrange ? "bg-[#FF602D]/10 border-2 border-[#FF602D]/20" : "border-2 border-foreground/10 bg-foreground/5"
+                  isAccented ? "bg-[#FF602D]/10 border-2 border-[#FF602D]/20" : "border-2 border-foreground/10 bg-foreground/5"
                 ),
                 children: /* @__PURE__ */ jsxRuntime.jsx(
                   lucideReact.CheckIcon,
                   {
                     className: cn(
                       "h-8 w-8 animate-in zoom-in duration-500 delay-200",
-                      isOrange ? "text-[#FF602D]" : "text-foreground"
+                      isAccented ? "text-[#FF602D]" : "text-foreground"
                     ),
                     strokeWidth: 2.5
                   }
@@ -458,7 +459,7 @@ function MultiStepForm({ variant = "default" }) {
                 {
                   className: cn(
                     "text-xl font-medium tracking-tight text-balance",
-                    isOrange ? "text-gray-900" : ""
+                    isOrange ? "text-gray-900" : isModal ? "text-gray-900 dark:text-foreground" : ""
                   ),
                   children: "You're all set"
                 }
@@ -468,7 +469,7 @@ function MultiStepForm({ variant = "default" }) {
                 {
                   className: cn(
                     "text-sm",
-                    isOrange ? "text-gray-500" : "text-muted-foreground/80"
+                    isOrange ? "text-gray-500" : isModal ? "text-gray-500 dark:text-muted-foreground" : "text-muted-foreground/80"
                   ),
                   children: formData.name
                 }
@@ -487,19 +488,19 @@ function MultiStepForm({ variant = "default" }) {
         variant === "onOrange" && "rounded-2xl bg-white p-8 shadow-xl"
       ),
       children: [
-        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mb-10 flex items-center justify-center gap-3", children: steps.map((step, index) => /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3", children: [
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mb-10 flex items-center", children: steps.map((step, index) => /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex items-center", index < steps.length - 1 && "flex-1"), children: [
           /* @__PURE__ */ jsxRuntime.jsxs(
             "button",
             {
               onClick: () => index < currentStep && setCurrentStep(index),
               disabled: index > currentStep,
               className: cn(
-                "group relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-700 ease-out",
+                "group relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-700 ease-out",
                 "disabled:cursor-not-allowed",
-                isOrange ? cn(
+                isAccented ? cn(
                   index < currentStep && "bg-[#FF602D]/15 text-[#FF602D]",
                   index === currentStep && "bg-[#FF602D] text-white shadow-[0_0_20px_-5px_rgba(255,96,45,0.4)]",
-                  index > currentStep && "bg-gray-100 text-gray-400 border border-gray-200"
+                  index > currentStep && (isOrange ? "bg-gray-100 text-gray-400 border border-gray-200" : "bg-muted text-muted-foreground/60 border border-border")
                 ) : cn(
                   index < currentStep && "bg-foreground/15 text-foreground/70",
                   index === currentStep && "bg-foreground text-background shadow-[0_0_20px_-5px_rgba(0,0,0,0.3)]",
@@ -519,14 +520,14 @@ function MultiStepForm({ variant = "default" }) {
                   {
                     className: cn(
                       "absolute inset-0 rounded-full blur-md animate-pulse",
-                      isOrange ? "bg-[#FF602D]/25" : "bg-foreground/20"
+                      isAccented ? "bg-[#FF602D]/25" : "bg-foreground/20"
                     )
                   }
                 )
               ]
             }
           ),
-          index < steps.length - 1 && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative h-[1.5px] w-12", children: [
+          index < steps.length - 1 && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative h-[1.5px] flex-1 mx-3", children: [
             /* @__PURE__ */ jsxRuntime.jsx(
               "div",
               {
@@ -541,7 +542,7 @@ function MultiStepForm({ variant = "default" }) {
               {
                 className: cn(
                   "absolute inset-0 transition-all duration-700 ease-out origin-left",
-                  isOrange ? "bg-[#FF602D]/40" : "bg-foreground/30"
+                  isAccented ? "bg-[#FF602D]/40" : "bg-foreground/30"
                 ),
                 style: {
                   transform: `scaleX(${index < currentStep ? 1 : 0})`
@@ -550,25 +551,6 @@ function MultiStepForm({ variant = "default" }) {
             )
           ] })
         ] }, step.id)) }),
-        /* @__PURE__ */ jsxRuntime.jsx(
-          "div",
-          {
-            className: cn(
-              "mb-8 overflow-hidden rounded-full h-[2px]",
-              isOrange ? "bg-gray-200" : "bg-border"
-            ),
-            children: /* @__PURE__ */ jsxRuntime.jsx(
-              "div",
-              {
-                className: cn(
-                  "h-full transition-all duration-1000 ease-out",
-                  isOrange ? "bg-gradient-to-r from-[#FF602D]/60 to-[#FF602D]" : "bg-gradient-to-r from-foreground/60 to-foreground"
-                ),
-                style: { width: `${progress}%` }
-              }
-            )
-          }
-        ),
         /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "space-y-8", children: [
           /* @__PURE__ */ jsxRuntime.jsxs(
             "div",
@@ -582,7 +564,7 @@ function MultiStepForm({ variant = "default" }) {
                       htmlFor: currentStepData.field,
                       className: cn(
                         "text-lg font-medium tracking-tight",
-                        isOrange && "text-gray-900"
+                        isOrange ? "text-gray-900" : isModal ? "text-gray-900 dark:text-foreground" : ""
                       ),
                       children: currentStepData.label
                     }
@@ -592,7 +574,7 @@ function MultiStepForm({ variant = "default" }) {
                     {
                       className: cn(
                         "text-xs font-medium tabular-nums",
-                        isOrange ? "text-gray-400" : "text-muted-foreground/60"
+                        isOrange ? "text-gray-400" : isModal ? "text-gray-400 dark:text-muted-foreground/60" : "text-muted-foreground/60"
                       ),
                       children: [
                         currentStep + 1,
@@ -611,8 +593,8 @@ function MultiStepForm({ variant = "default" }) {
                     value: formData[currentStepData.field] || "",
                     onChange: (e) => handleInputChange(currentStepData.field, e.target.value),
                     className: cn(
-                      "h-14 text-base transition-all duration-500 shadow-sm",
-                      isOrange ? "border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400 focus:border-[#FF602D]/40 focus:ring-[#FF602D]/10" : "border-border focus:border-foreground/30 bg-card"
+                      "h-12 rounded-xl text-base transition-all duration-500 shadow-sm",
+                      isOrange ? "border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400 focus:border-[#FF602D]/40 focus:ring-[#FF602D]/10" : isModal ? "border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400 focus:border-[#FF602D]/40 focus:ring-[#FF602D]/10 dark:border-border dark:bg-input/30 dark:text-foreground dark:placeholder:text-muted-foreground dark:focus:border-[#FF602D]/40 dark:focus:ring-[#FF602D]/10" : "border-border focus:border-foreground/30 bg-card"
                     )
                   }
                 ) })
@@ -627,7 +609,7 @@ function MultiStepForm({ variant = "default" }) {
               disabled: !formData[currentStepData.field]?.trim(),
               className: cn(
                 "w-full h-12 group relative transition-all duration-300",
-                isOrange ? "bg-[#FF602D] text-white hover:bg-[#D4501F] hover:shadow-lg hover:shadow-[#FF602D]/20 disabled:bg-gray-200 disabled:text-gray-400" : "hover:shadow-lg hover:shadow-foreground/5"
+                isAccented ? "bg-[#FF602D] text-white hover:bg-[#D4501F] hover:shadow-lg hover:shadow-[#FF602D]/20 disabled:bg-gray-200 disabled:text-gray-400 dark:disabled:bg-muted dark:disabled:text-muted-foreground/60" : "hover:shadow-lg hover:shadow-foreground/5"
               ),
               children: /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "flex items-center justify-center gap-2 font-medium", children: [
                 currentStep === steps.length - 1 ? "Complete" : "Continue",
@@ -647,12 +629,91 @@ function MultiStepForm({ variant = "default" }) {
               onClick: () => setCurrentStep(currentStep - 1),
               className: cn(
                 "w-full text-center text-sm transition-all duration-300",
-                isOrange ? "text-gray-400 hover:text-gray-600" : "text-muted-foreground/60 hover:text-foreground/80"
+                isOrange ? "text-gray-400 hover:text-gray-600" : isModal ? "text-gray-400 hover:text-gray-600 dark:text-muted-foreground/60 dark:hover:text-foreground/80" : "text-muted-foreground/60 hover:text-foreground/80"
               ),
               children: "Go back"
             }
           )
         ] })
+      ]
+    }
+  );
+}
+var shimmerGradients = {
+  white: {
+    background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 48%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.12) 52%, transparent 60%)"
+  },
+  orange: {
+    background: "linear-gradient(105deg, transparent 40%, rgba(255,96,45,0.08) 48%, rgba(255,96,45,0.14) 50%, rgba(255,96,45,0.08) 52%, transparent 60%)"
+  }
+};
+function ShimmerButton({
+  shimmerColor = "white",
+  asChild = false,
+  className,
+  children,
+  ...props
+}) {
+  const Comp = asChild ? radixUi.Slot.Root : "button";
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    Comp,
+    {
+      "data-slot": "shimmer-button",
+      className: cn(
+        "relative inline-flex h-9 shrink-0 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full px-5 text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        shimmerColor === "white" ? "bg-[#272727] text-white dark:bg-[#272727]" : "bg-white text-foreground border border-border dark:bg-white dark:text-[#272727]",
+        className
+      ),
+      ...props,
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          framerMotion.motion.span,
+          {
+            className: "pointer-events-none absolute inset-0 z-0",
+            style: {
+              ...shimmerGradients[shimmerColor],
+              backgroundSize: "300% 100%"
+            },
+            animate: { backgroundPosition: ["300% 0%", "-300% 0%"] },
+            transition: {
+              duration: 2.5,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatDelay: 1.5
+            }
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx("span", { className: "relative z-10 inline-flex items-center gap-2", children })
+      ]
+    }
+  );
+}
+function AnnouncementPill({
+  href,
+  children,
+  external = false,
+  className
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "a",
+    {
+      href,
+      ...external ? { target: "_blank", rel: "noopener noreferrer" } : void 0,
+      className: cn(
+        "group inline-flex items-center gap-2.5 rounded-full border border-border bg-white py-1.5 pl-5 pr-1 shadow-sm transition-colors duration-300 hover:border-border/80 dark:border-white/[0.08] dark:bg-[#272727] dark:hover:border-white/[0.12]",
+        className
+      ),
+      style: { boxShadow: "0 2px 12px rgba(0,0,0,0.04)" },
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "flex items-center gap-2 text-sm font-medium text-foreground dark:text-white/90", children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "relative flex h-1.5 w-1.5", children: [
+            /* @__PURE__ */ jsxRuntime.jsx("span", { className: "absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" }),
+            /* @__PURE__ */ jsxRuntime.jsx("span", { className: "relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" })
+          ] }),
+          children
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsx("span", { className: "block h-4 w-px bg-border/60 dark:bg-white/[0.1]" }),
+        /* @__PURE__ */ jsxRuntime.jsx("span", { className: "flex h-6 w-6 items-center justify-center rounded-full bg-secondary transition-colors duration-200 group-hover:bg-secondary/80 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.1]", children: /* @__PURE__ */ jsxRuntime.jsx(lucideReact.ArrowRight, { className: "h-3 w-3 text-foreground/60 dark:text-white/40" }) })
       ]
     }
   );
@@ -692,7 +753,7 @@ function FlipText({ children }) {
     framerMotion.motion.span,
     {
       ref,
-      className: "relative inline-flex items-center justify-center",
+      className: "relative inline-flex shrink-0 items-center justify-center",
       style: { perspective: "600px" },
       animate: hovered ? "hover" : "initial",
       children: [
@@ -1992,6 +2053,7 @@ function PlaceholderIcon({ label, color }) {
 
 exports.AnimatedGridPattern = AnimatedGridPattern;
 exports.AnimatedGroup = AnimatedGroup;
+exports.AnnouncementPill = AnnouncementPill;
 exports.AuroraBackground = AuroraBackground;
 exports.AvatarCircles = AvatarCircles;
 exports.Badge = Badge;
@@ -2029,6 +2091,7 @@ exports.SheetFooter = SheetFooter;
 exports.SheetHeader = SheetHeader;
 exports.SheetTitle = SheetTitle;
 exports.SheetTrigger = SheetTrigger;
+exports.ShimmerButton = ShimmerButton;
 exports.Spotlight = Spotlight;
 exports.TextEffect = TextEffect;
 exports.ThemeProvider = ThemeProvider;
