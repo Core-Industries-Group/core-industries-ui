@@ -46,10 +46,10 @@ const primaryRelationships = [
 ];
 
 const lightSurfaces = [
-  { name: "Background", value: "#F7F8FC", token: "--color-bg" },
+  { name: "Background", value: "#F8F8F8", token: "--color-bg" },
   { name: "Surface", value: "#FFFFFF", token: "--color-surface" },
-  { name: "Surface Raised", value: "#F1F3F8", token: "--color-surface-raised" },
-  { name: "Surface Elevated", value: "#E8EBF2", token: "--color-surface-elevated" },
+  { name: "Surface Raised", value: "#F3F3F3", token: "--color-surface-raised" },
+  { name: "Surface Elevated", value: "#EBEBEB", token: "--color-surface-elevated" },
 ];
 
 const darkSurfaces = [
@@ -61,16 +61,16 @@ const darkSurfaces = [
 
 const lightInk = [
   { name: "Ink", value: "#272727", token: "--color-ink" },
-  { name: "Ink Secondary", value: "#4B5563", token: "--color-ink-secondary" },
-  { name: "Ink Tertiary", value: "#9CA3AF", token: "--color-ink-tertiary" },
-  { name: "Ink Faint", value: "#D1D5DB", token: "--color-ink-faint" },
+  { name: "Ink Secondary", value: "#555555", token: "--color-ink-secondary" },
+  { name: "Ink Tertiary", value: "#A3A3A3", token: "--color-ink-tertiary" },
+  { name: "Ink Faint", value: "#D5D5D5", token: "--color-ink-faint" },
 ];
 
 const darkInk = [
-  { name: "Ink", value: "#F0EFE8", token: "--color-ink" },
-  { name: "Ink Secondary", value: "#9B9A93", token: "--color-ink-secondary" },
-  { name: "Ink Tertiary", value: "#5E5D58", token: "--color-ink-tertiary" },
-  { name: "Ink Faint", value: "#3A3A3F", token: "--color-ink-faint" },
+  { name: "Ink", value: "#EEEEEE", token: "--color-ink" },
+  { name: "Ink Secondary", value: "#999999", token: "--color-ink-secondary" },
+  { name: "Ink Tertiary", value: "#5C5C5C", token: "--color-ink-tertiary" },
+  { name: "Ink Faint", value: "#3A3A3A", token: "--color-ink-faint" },
 ];
 
 const semanticColors = [
